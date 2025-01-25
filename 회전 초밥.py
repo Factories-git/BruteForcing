@@ -1,19 +1,27 @@
 n, d, k, c = map(int, input().split())
 sushi_belt = [int(input()) for i in range(n)]
-Check = {i: 0 for i in sushi_belt}
+is_c = c in sushi_belt
+
 re = 0
 for i in range(n):
     window = [sushi_belt[(j + i) % n] for j in range(k)]
-    if list(dict.fromkeys(window)) != window:
-        continue
-    print(window)
-    window.append(sushi_belt[(i - k - 1) % n])
-    if list(dict.fromkeys(window)) == window and window[-1] == c:
-        re = max(re, len(window))
-    window.pop()
-    window.append(sushi_belt[(i + 1) % n])
-    if list(dict.fromkeys(window)) == window and window[-1] == c:
-        re = max(re, len(window))
+    sushi_type = window.copy()
+
+    sushi_type.append(sushi_belt[(i - 1) % n])
+    if len(window) >= k and sushi_type[-1] == c:
+        re = max(re, len(set(sushi_type)))
+    sushi_type.pop()
+
+    sushi_type.append(sushi_belt[(i + 1) % n])
+    if len(window) >= k and sushi_type[-1] == c:
+        re = max(re, len(set(sushi_type)))
+    sushi_type.pop()
+
+    sushi_type.append(c)
+
+    if len(window) >= k:
+        re = max(re, len(set(sushi_type)))
+
 print(re)
 
 """
