@@ -17,3 +17,16 @@ for i in range(k, n+1):
     if list(dict.fromkeys(window)) == window and window[-1] == c:
         re = max(re, len(window))
 print(re)
+
+"""
+중요 반례:
+8 30 4 30
+7
+7
+3
+7
+7
+8
+7
+7
+"""
